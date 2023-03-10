@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+     {{product.desc|truncatewords:155}}
+{% endblock %}
+{% block title %}
+     {% if category %}
+         {{product.name}}
+     {% endif %}
+{% endblock %}
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto">
+        <p> <a href="{% url 'shop:allProdCat' %}">Home</a> | <a href="{{product.category.get_url}}">{{product.category}}</a>|{{product.name}}</p>
+    </div>
+</div>
+<br>
+<div>
+    <div>
+        <div>
+            <img src="{{product.image.url}}" alt="{{product.name}}">
+        </div>
+    </div>
+    <div>
+        <h1>{{product.name}}</h1>
+        <p> ${{product.price}}</p>
+        <p>Product Description</p>
+        <p>{{product.desc}}Most people will look at the issue from a culinary standpoint. In that case, fruits and vegetables are separated based on their taste and aroma. According to this definition, fruits are sweet or sour, while vegetables are more mild and savory. These two food groups will also have different culinary uses. Fruits will be predominantly added to desserts, smoothies or juices, while vegetables will form a part of a hearty side dish or the main course.</p>
+        {% if product.stock <= 0 %}
+        <p><b>Out of Stock </b></p>
+        {% else %}
+        <a href="{% url 'cart:add_cart' product.id %}">Add to Cart</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
